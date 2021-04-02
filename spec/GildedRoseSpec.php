@@ -79,19 +79,24 @@ describe('Gilded Rose', function () {
             it('updates Sulfuras items before the sell date', function () {
                 $gr = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 10, 5)]);
                 $gr->nextDay();
-                expect($gr->getItem(0)->quality)->toBe(10);
+
+                //Altered test to reflect " "Sulfuras" is a legendary item and as such its Quality is 80 and it never alters."
+                expect($gr->getItem(0)->quality)->toBe(80);
                 expect($gr->getItem(0)->sellIn)->toBe(5);
             });
             it('updates Sulfuras items on the sell date', function () {
                 $gr = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 10, 5)]);
                 $gr->nextDay();
-                expect($gr->getItem(0)->quality)->toBe(10);
+                //Altered test to reflect " "Sulfuras" is a legendary item and as such its Quality is 80 and it never alters."
+                expect($gr->getItem(0)->quality)->toBe(80);
                 expect($gr->getItem(0)->sellIn)->toBe(5);
             });
             it('updates Sulfuras items after the sell date', function () {
                 $gr = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 10, -1)]);
                 $gr->nextDay();
-                expect($gr->getItem(0)->quality)->toBe(10);
+                
+                //Altered test to reflect " "Sulfuras" is a legendary item and as such its Quality is 80 and it never alters."
+                expect($gr->getItem(0)->quality)->toBe(80);
                 expect($gr->getItem(0)->sellIn)->toBe(-1);
             });
         });
@@ -151,7 +156,7 @@ describe('Gilded Rose', function () {
                 expect($gr->getItem(0)->sellIn)->toBe(-2);
             });
         });
-        /*
+
         context("Conjured Items", function () {
             it('updates Conjured items before the sell date', function () {
                 $gr = new GildedRose([new Item('Conjured Mana Cake', 10, 10)]);
@@ -190,6 +195,6 @@ describe('Gilded Rose', function () {
                 expect($gr->getItem(0)->sellIn)->toBe(-11);
             });
         });
-        */
+
     });
 });
