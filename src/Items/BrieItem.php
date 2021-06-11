@@ -4,7 +4,7 @@ namespace App\Items;
 
 use App\Item;
 
-class NormalItem extends Item {
+class BrieItem extends Item {
 
     public $name;
     public $sellIn;
@@ -17,15 +17,16 @@ class NormalItem extends Item {
     }
 
     private function updateQuality(){
-
-        if( $this->sellIn > 1)
+        
+        if( $this->sellIn < 1)
         {
-            $this->quality = max([$this->quality - 1, 0]);
+            $this->quality = min([$this->quality + 2, 50]);
         }
         else
         {
-            $this->quality = max([$this->quality - 2, 0]);
-        }
+            $this->quality = min([$this->quality + 1, 50]);
+        }    
+        
     }
 
     private function updateSellin(){

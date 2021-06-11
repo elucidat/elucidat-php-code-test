@@ -2,6 +2,7 @@
 
 use App\Item;
 use App\Items\NormalItem;
+use App\Items\BrieItem;
 use App\GildedRose;
 
 describe('Gilded Rose', function () {
@@ -32,51 +33,51 @@ describe('Gilded Rose', function () {
                 expect($gr->getItem(0)->sellIn)->toBe(4);
             });
         });
-        /*
         context('Brie Items', function () {
             it('updates Brie items before the sell date', function () {
-                $gr = new GildedRose([new Item('Aged Brie', 10, 5)]);
+                $gr = new GildedRose([new BrieItem('Aged Brie', 10, 5)]);
                 $gr->nextDay();
                 expect($gr->getItem(0)->quality)->toBe(11);
                 expect($gr->getItem(0)->sellIn)->toBe(4);
             });
             it('updates Brie items before the sell date with maximum quality', function () {
-                $gr = new GildedRose([new Item('Aged Brie', 50, 5)]);
+                $gr = new GildedRose([new BrieItem('Aged Brie', 50, 5)]);
                 $gr->nextDay();
                 expect($gr->getItem(0)->quality)->toBe(50);
                 expect($gr->getItem(0)->sellIn)->toBe(4);
             });
             it('updates Brie items on the sell date', function () {
-                $gr = new GildedRose([new Item('Aged Brie', 10, 0)]);
+                $gr = new GildedRose([new BrieItem('Aged Brie', 10, 0)]);
                 $gr->nextDay();
                 expect($gr->getItem(0)->quality)->toBe(12);
                 expect($gr->getItem(0)->sellIn)->toBe(-1);
             });
             it('updates Brie items on the sell date, near maximum quality', function () {
-                $gr = new GildedRose([new Item('Aged Brie', 49, 0)]);
+                $gr = new GildedRose([new BrieItem('Aged Brie', 49, 0)]);
                 $gr->nextDay();
                 expect($gr->getItem(0)->quality)->toBe(50);
                 expect($gr->getItem(0)->sellIn)->toBe(-1);
             });
             it('updates Brie items on the sell date with maximum quality', function () {
-                $gr = new GildedRose([new Item('Aged Brie', 50, 0)]);
+                $gr = new GildedRose([new BrieItem('Aged Brie', 50, 0)]);
                 $gr->nextDay();
                 expect($gr->getItem(0)->quality)->toBe(50);
                 expect($gr->getItem(0)->sellIn)->toBe(-1);
             });
             it('updates Brie items after the sell date', function () {
-                $gr = new GildedRose([new Item('Aged Brie', 10, -10)]);
+                $gr = new GildedRose([new BrieItem('Aged Brie', 10, -10)]);
                 $gr->nextDay();
                 expect($gr->getItem(0)->quality)->toBe(12);
                 expect($gr->getItem(0)->sellIn)->toBe(-11);
             });
             it('updates Brie items after the sell date with maximum quality', function () {
-                $gr = new GildedRose([new Item('Aged Brie', 50, -10)]);
+                $gr = new GildedRose([new BrieItem('Aged Brie', 50, -10)]);
                 $gr->nextDay();
                 expect($gr->getItem(0)->quality)->toBe(50);
                 expect($gr->getItem(0)->sellIn)->toBe(-11);
             });
         });
+        /*
         context('Sulfuras Items', function () {
             it('updates Sulfuras items before the sell date', function () {
                 $gr = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 10, 5)]);
