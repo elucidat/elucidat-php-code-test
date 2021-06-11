@@ -12,7 +12,7 @@ class SulfurasItem extends NormalItem {
 
     public function nextDay()
     {
-        //empty method as does not change sellIn or quality 
+        //empty method as $this->sellIn or $this->quality do not change  
     }
 
 }
