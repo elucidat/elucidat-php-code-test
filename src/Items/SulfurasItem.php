@@ -2,9 +2,9 @@
 
 namespace App\Items;
 
-use App\Item;
+use App\Items\NormalItem;
 
-class SulfurasItem extends Item {
+class SulfurasItem extends NormalItem {
 
     public $name;
     public $sellIn;
