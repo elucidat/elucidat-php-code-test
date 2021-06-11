@@ -2,9 +2,9 @@
 
 namespace App\Items;
 
-use App\Item;
+use App\Items\NormalItem;
 
-class BackstagePassItem extends Item {
+class BackstagePassItem extends NormalItem {
 
     public $name;
     public $sellIn;
@@ -16,7 +16,7 @@ class BackstagePassItem extends Item {
         $this->updateSellIn();        
     }
 
-    private function updateQuality(){
+    protected function updateQuality(){
 
         if( $this->sellIn > 10)
         {
@@ -34,10 +34,6 @@ class BackstagePassItem extends Item {
         {
             $this->quality = 0;
         }
-    }
-
-    private function updateSellin(){
-        $this->sellIn = $this->sellIn - 1;
     }
 
 }
