@@ -3,6 +3,7 @@
 use App\Item;
 use App\Items\NormalItem;
 use App\Items\BrieItem;
+use App\Items\SulfurasItem;
 use App\GildedRose;
 
 describe('Gilded Rose', function () {
@@ -77,27 +78,28 @@ describe('Gilded Rose', function () {
                 expect($gr->getItem(0)->sellIn)->toBe(-11);
             });
         });
-        /*
+        
         context('Sulfuras Items', function () {
             it('updates Sulfuras items before the sell date', function () {
-                $gr = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 10, 5)]);
+                $gr = new GildedRose([new SulfurasItem('Sulfuras, Hand of Ragnaros', 10, 5)]);
                 $gr->nextDay();
                 expect($gr->getItem(0)->quality)->toBe(10);
                 expect($gr->getItem(0)->sellIn)->toBe(5);
             });
             it('updates Sulfuras items on the sell date', function () {
-                $gr = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 10, 5)]);
+                $gr = new GildedRose([new SulfurasItem('Sulfuras, Hand of Ragnaros', 10, 5)]);
                 $gr->nextDay();
                 expect($gr->getItem(0)->quality)->toBe(10);
                 expect($gr->getItem(0)->sellIn)->toBe(5);
             });
             it('updates Sulfuras items after the sell date', function () {
-                $gr = new GildedRose([new Item('Sulfuras, Hand of Ragnaros', 10, -1)]);
+                $gr = new GildedRose([new SulfurasItem('Sulfuras, Hand of Ragnaros', 10, -1)]);
                 $gr->nextDay();
                 expect($gr->getItem(0)->quality)->toBe(10);
                 expect($gr->getItem(0)->sellIn)->toBe(-1);
             });
         });
+        /*
         context('Backstage Passes', function () {
             it('updates Backstage pass items long before the sell date', function () {
                 $gr = new GildedRose([new Item('Backstage passes to a TAFKAL80ETC concert', 10, 11)]);
