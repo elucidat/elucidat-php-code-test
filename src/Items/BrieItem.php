@@ -10,12 +10,6 @@ class BrieItem extends NormalItem {
     public $sellIn;
     public $quality;
 
-    public function nextDay()
-    {
-        $this->updateQuality();
-        $this->updateSellIn();        
-    }
-
     protected function updateQuality(){
         
         if( $this->sellIn < 1)

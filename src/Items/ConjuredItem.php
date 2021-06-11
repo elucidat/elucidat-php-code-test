@@ -2,21 +2,15 @@
 
 namespace App\Items;
 
-use App\Item;
+use App\Items\NormalItem;
 
-class ConjuredItem extends Item {
+class ConjuredItem extends NormalItem {
 
     public $name;
     public $sellIn;
     public $quality;
 
-    public function nextDay()
-    {
-        $this->updateQuality();
-        $this->updateSellIn();        
-    }
-
-    private function updateQuality(){
+    protected function updateQuality(){
 
         if( $this->sellIn > 1)
         {
@@ -27,9 +21,4 @@ class ConjuredItem extends Item {
             $this->quality = max([$this->quality - 4, 0]);
         }
     }
-
-    private function updateSellin(){
-        $this->sellIn = $this->sellIn - 1;
-    }
-
 }
