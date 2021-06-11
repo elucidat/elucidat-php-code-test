@@ -2,7 +2,7 @@
 
 ## The task
 
-This repository includes the initial setup for a Gilded Rose kata.  It includes everything you need to get up and running, including a large suite of tests.  The purpose of this task is to put you in the position of having some old, ugly, legacy code and seeing whay you could do with it, all of the while making any of your changes test-driven and ensuring everything continues to pass the tests (or any more tests you would write). 
+This repository includes the initial setup for a Gilded Rose kata.  It includes everything you need to get up and running, including a large suite of tests.  The purpose of this task is to put you in the position of having some old, ugly, legacy code and seeing what you could do with it, all of the while making any of your changes test-driven and ensuring everything continues to pass the tests (or any more tests you would write). 
 
 Please follow the specifications below, refactoring as you see fit.  However, please keep the following in mind:
 
