@@ -2,9 +2,9 @@
 
 namespace App\Items;
 
-use App\Item;
+use App\Items\NormalItem;
 
-class BrieItem extends Item {
+class BrieItem extends NormalItem {
 
     public $name;
     public $sellIn;
@@ -16,7 +16,7 @@ class BrieItem extends Item {
         $this->updateSellIn();        
     }
 
-    private function updateQuality(){
+    protected function updateQuality(){
         
         if( $this->sellIn < 1)
         {
@@ -27,10 +27,6 @@ class BrieItem extends Item {
             $this->quality = min([$this->quality + 1, 50]);
         }    
         
-    }
-
-    private function updateSellin(){
-        $this->sellIn = $this->sellIn - 1;
     }
 
 }

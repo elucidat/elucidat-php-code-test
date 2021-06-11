@@ -16,7 +16,7 @@ class NormalItem extends Item {
         $this->updateSellIn();        
     }
 
-    private function updateQuality(){
+    protected function updateQuality(){
 
         if( $this->sellIn > 1)
         {
@@ -28,7 +28,7 @@ class NormalItem extends Item {
         }
     }
 
-    private function updateSellin(){
+    protected function updateSellin(){
         $this->sellIn = $this->sellIn - 1;
     }
 
