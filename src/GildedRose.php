@@ -6,6 +6,14 @@ class GildedRose
 {
     private $items;
 
+    // Keeping inline with SOLID priciples, this array can be updated to accept new product types
+    private static $itemTypes = [
+        'Aged Brie' => AgedBrie::class,
+        'Sulfuras, Hand of Ragnaros'  => Sulfuras::class,
+        'Backstage passes to a TAFKAL80ETC concert' => BackstagePasses::class,
+        'Conjured Mana Cake'  => Conjured::class
+    ];
+
     public function __construct(array $items)
     {
         $this->items = $items;
@@ -22,49 +30,13 @@ class GildedRose
     public function nextDay()
     {
         foreach ($this->items as $item) {
-            if ($item->name != 'Aged Brie' and $item->name != 'Backstage passes to a TAFKAL80ETC concert') {
-                if ($item->quality > 0) {
-                    if ($item->name != 'Sulfuras, Hand of Ragnaros') {
-                        $item->quality = $item->quality - 1;
-                    }
-                }
+            if(array_key_exists($item->name, self::$itemTypes)){
+                $item = new self::$itemTypes[$item->name]($item);
             } else {
-                if ($item->quality < 50) {
-                    $item->quality = $item->quality + 1;
-                    if ($item->name == 'Backstage passes to a TAFKAL80ETC concert') {
-                        if ($item->sellIn < 11) {
-                            if ($item->quality < 50) {
-                                $item->quality = $item->quality + 1;
-                            }
-                        }
-                        if ($item->sellIn < 6) {
-                            if ($item->quality < 50) {
-                                $item->quality = $item->quality + 1;
-                            }
-                        }
-                    }
-                }
+                $item = new Normal($item);
             }
-            if ($item->name != 'Sulfuras, Hand of Ragnaros') {
-                $item->sellIn = $item->sellIn - 1;
-            }
-            if ($item->sellIn < 0) {
-                if ($item->name != 'Aged Brie') {
-                    if ($item->name != 'Backstage passes to a TAFKAL80ETC concert') {
-                        if ($item->quality > 0) {
-                            if ($item->name != 'Sulfuras, Hand of Ragnaros') {
-                                $item->quality = $item->quality - 1;
-                            }
-                        }
-                    } else {
-                        $item->quality = $item->quality - $item->quality;
-                    }
-                } else {
-                    if ($item->quality < 50) {
-                        $item->quality = $item->quality + 1;
-                    }
-                }
-            }
+            // Process the "next day" scenario
+            $item->nextDay();
         }
     }
 }
