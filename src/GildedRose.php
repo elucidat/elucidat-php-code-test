@@ -83,7 +83,5 @@ class GildedRose
         }
 
         $item->sellIn -= 1;
-
-        return $item;
     }
 }
