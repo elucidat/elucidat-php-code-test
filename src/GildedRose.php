@@ -23,6 +23,9 @@ class GildedRose
                 case 'Backstage passes to a TAFKAL80ETC concert':
                     $list[] = new PassesItem($item['quality'], $item['sellIn']);
                     break;
+                case 'Conjured Mana Cake':
+                    $list[] = new ConjuredItem($item['quality'], $item['sellIn']);
+                    break;
             }
         }
         $this->items = $list;
