@@ -2,6 +2,12 @@
 
 namespace App;
 
+use App\classes\BrieItem;
+use App\classes\ConjuredItem;
+use App\classes\NormalItem;
+use App\classes\PassesItem;
+use App\classes\SulfurasItem;
+
 class GildedRose
 {
     private $items;
@@ -9,8 +15,8 @@ class GildedRose
     public function __construct(array $items)
     {
         $list = [];
-        foreach($items as $item){
-            switch($item['name']) {
+        foreach ($items as $item) {
+            switch ($item['name']) {
                 case 'normal':
                     $list[] = new NormalItem($item['quality'], $item['sellIn']);
                     break;

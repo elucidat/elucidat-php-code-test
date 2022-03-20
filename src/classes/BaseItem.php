@@ -1,6 +1,8 @@
 <?php
 
-namespace App;
+namespace App\classes;
+
+use App\interfaces\DayIncrementInterface;
 
 abstract class BaseItem extends Item implements DayIncrementInterface
 {

@@ -1,6 +1,5 @@
 <?php
 
-use App\Item;
 use App\GildedRose;
 
 describe('Gilded Rose', function () {
