@@ -30,6 +30,14 @@ describe('Gilded Rose', function () {
                 expect($gr->getItem(0)->quality)->toBe(0);
                 expect($gr->getItem(0)->sellIn)->toBe(4);
             });
+            it('adds 2 and updates 2 normal items before sell date', function () {
+                $gr = new GildedRose([['name'=>'normal', 'quality'=>10, 'sellIn'=>5], ['name'=>'normal', 'quality'=>15, 'sellIn'=>6]]);
+                $gr->nextDay();
+                expect($gr->getItem(0)->quality)->toBe(9);
+                expect($gr->getItem(0)->sellIn)->toBe(4);
+                expect($gr->getItem(1)->quality)->toBe(14);
+                expect($gr->getItem(1)->sellIn)->toBe(5);
+            });
         });
         context('Brie Items', function () {
             it('updates Brie items before the sell date', function () {
