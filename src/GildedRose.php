@@ -14,6 +14,9 @@ class GildedRose
                 case 'normal':
                     $list[] = new NormalItem($item['quality'], $item['sellIn']);
                     break;
+                case 'Aged Brie':
+                    $list[] = new BrieItem($item['quality'], $item['sellIn']);
+                    break;
                 default:
                     $list[] = new Item($item['name'], $item['quality'], $item['sellIn']);
             }
@@ -32,10 +35,8 @@ class GildedRose
     public function nextDay()
     {
         foreach ($this->items as $item) {
-            if($item->name === 'normal'){
+            if($item->name === 'normal' || $item->name === 'Aged Brie'){
                 $item->dayIncrement();
-            } elseif($item->name === 'Aged Brie') {
-                $this->brieNextDay($item);
             } elseif($item->name === 'Sulfuras, Hand of Ragnaros') {
                 $this->sulfurasNextDay($item);
             }elseif($item->name === 'Backstage passes to a TAFKAL80ETC concert') {

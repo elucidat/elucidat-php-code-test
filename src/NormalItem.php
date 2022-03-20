@@ -16,8 +16,8 @@ class NormalItem extends BaseItem
             $this->quality -= 1;
         }
 
-        if ($this->quality <= parent::MIN_QUALITY) {
-            $this->quality = parent::MIN_QUALITY;
+        if ($this->quality <= self::MIN_QUALITY) {
+            $this->quality = self::MIN_QUALITY;
         }
 
         $this->sellIn -= 1;
