@@ -4,8 +4,8 @@ namespace App\Enums;
 
 use App\Exceptions\UnknownProductTypeException;
 use App\Logic\AgingItemLogic;
-use App\Logic\ConjuredItemLogic;
 use App\Logic\BackstageItemLogic;
+use App\Logic\ConjuredItemLogic;
 use App\Logic\LegendaryItemLogic;
 use App\Logic\RegularItemLogic;
 
