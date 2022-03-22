@@ -27,7 +27,7 @@ class GildedRose
 
     public function nextDay()
     {
-        /** @var Product $itemEntry */
+        /** @var Product $product */
         foreach ($this->items as $product) {
 
             if (!$product instanceof Models\Product) {
