@@ -2,6 +2,12 @@
 
 namespace App;
 
+use App\Enums\ProductDefaults;
+use App\Enums\ProductType;
+use App\Exceptions\UnknownProductException;
+use App\Interfaces\NextDayLogicInterface;
+use App\Models\Product;
+
 class GildedRose
 {
     private $items;
@@ -21,50 +27,28 @@ class GildedRose
 
     public function nextDay()
     {
-        foreach ($this->items as $item) {
-            if ($item->name != 'Aged Brie' and $item->name != 'Backstage passes to a TAFKAL80ETC concert') {
-                if ($item->quality > 0) {
-                    if ($item->name != 'Sulfuras, Hand of Ragnaros') {
-                        $item->quality = $item->quality - 1;
-                    }
-                }
-            } else {
-                if ($item->quality < 50) {
-                    $item->quality = $item->quality + 1;
-                    if ($item->name == 'Backstage passes to a TAFKAL80ETC concert') {
-                        if ($item->sellIn < 11) {
-                            if ($item->quality < 50) {
-                                $item->quality = $item->quality + 1;
-                            }
-                        }
-                        if ($item->sellIn < 6) {
-                            if ($item->quality < 50) {
-                                $item->quality = $item->quality + 1;
-                            }
-                        }
-                    }
-                }
+        /** @var Product $itemEntry */
+        foreach ($this->items as $product) {
+
+            if (!$product instanceof Models\Product) {
+                throw new UnknownProductException('All the items in a collection should be the type of Item');
             }
-            if ($item->name != 'Sulfuras, Hand of Ragnaros') {
-                $item->sellIn = $item->sellIn - 1;
+
+            // Process sell in days and quality
+            /** @var string|NextDayLogicInterface $typeClass */
+            $typeClass = ProductType::getNextDayLogicClass($product->type);  // Get logic class for the given item
+            $typeClass::nextDay($product);                                   // Calculate item's next day Quality and SelIn value
+
+            // Enforce minimum Quality
+            if ($product->quality < ProductDefaults::MIN_QUALITY) {
+                $product->quality = ProductDefaults::MIN_QUALITY;
             }
-            if ($item->sellIn < 0) {
-                if ($item->name != 'Aged Brie') {
-                    if ($item->name != 'Backstage passes to a TAFKAL80ETC concert') {
-                        if ($item->quality > 0) {
-                            if ($item->name != 'Sulfuras, Hand of Ragnaros') {
-                                $item->quality = $item->quality - 1;
-                            }
-                        }
-                    } else {
-                        $item->quality = $item->quality - $item->quality;
-                    }
-                } else {
-                    if ($item->quality < 50) {
-                        $item->quality = $item->quality + 1;
-                    }
-                }
+
+            // Enforce maximum Quality
+            if ($product->quality > $typeClass::maxQuality()) {
+                $product->quality = $typeClass::maxQuality();
             }
+
         }
     }
 }

@@ -54,4 +54,4 @@ We have recently signed a supplier of conjured items. This requires an update to
 Feel free to make any changes to the `nextDay` method and add any new code as long as everything
 still works correctly. However, do not alter the `Item` class or `items` property as those belong to the goblin in the corner who will insta-rage you as he doesn't believe in shared code ownership (you can make the `nextDay` method and `items` property static if you like, we'll cover for you).
 
-Just for clarification, an item can never have its Quality increase above 50, however "Sulfuras" is a legendary item and as such its Quality is 80 and it never alters.
+Just for clarification, an item can never have its Quality increase above 50, however "Sulfuras" is a legendary item and as such its maximum Quality is 80 and it never alters.
