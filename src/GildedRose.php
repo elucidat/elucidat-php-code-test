@@ -1,14 +1,28 @@
 <?php
 
 namespace App;
+use App\ItemTypes;
 
 class GildedRose
 {
     private $items;
+    private $itemTypes = [];
 
-    public function __construct(array $items)
+    public function __construct(array $items, array $itemTypes = null)
     {
         $this->items = $items;
+
+        if($itemTypes === NULL) {
+            $itemTypes = [
+                new ItemTypes\AgedBrieItemTypes,
+                new ItemTypes\BackstagePassesItemTypes,
+                new ItemTypes\ConjuredItemTypes,
+                new ItemTypes\NormalItemTypes,
+                new ItemTypes\SulfurasItemTypes,
+            ];
+        }
+
+        $this->itemTypes = $itemTypes;
     }
 
     public function getItem($which = null)
@@ -22,6 +36,22 @@ class GildedRose
     public function nextDay()
     {
         foreach ($this->items as $item) {
+            $undeclared = true;
+            foreach ($this->itemTypes as $type) {
+                if ($type->itemType($item)) {
+                    $type->nextDay($item);
+                    $undeclared = false;
+                }
+            }
+
+            if($undeclared) {
+                throw new \UnexpectedValueException(
+                    sprintf('Item type for %s was not found', $item)
+                );
+            }
+        }
+        /*
+        foreach ($this->items as $item) {
             switch($item->name) {
                 case 'normal' : $this->normal($item); break;
                 case 'Aged Brie' : $this->agedBrie($item); break;
@@ -30,8 +60,9 @@ class GildedRose
                 case 'Conjured Mana Cake' : $this->conjured($item); break;
             }
         }
+        */
     }
-
+/*
     public function normal($item) {
         if ($item->quality > 0) { $item->quality -= 1; }
         $item->sellIn -= 1;
@@ -77,4 +108,5 @@ class GildedRose
             }
         }
     }
+    */
 }
