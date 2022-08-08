@@ -2,13 +2,28 @@
 
 namespace App;
 
+use App\Items;
+
 class GildedRose
 {
     private $items;
+    private $itemTypes = [];
 
-    public function __construct(array $items)
+    public function __construct(array $items, array $itemTypes = null)
     {
         $this->items = $items;
+
+        if($itemTypes === NULL) {
+            $itemTypes = [
+                new Items\AgedBrie,
+                new Items\BackstagePass,
+                new Items\Conjured,
+                new Items\Normal,
+                new Items\Sulfuras,
+            ];
+        }
+
+        $this->itemTypes = $itemTypes;
     }
 
     public function getItem($which = null)
@@ -22,49 +37,21 @@ class GildedRose
     public function nextDay()
     {
         foreach ($this->items as $item) {
-            if ($item->name != 'Aged Brie' and $item->name != 'Backstage passes to a TAFKAL80ETC concert') {
-                if ($item->quality > 0) {
-                    if ($item->name != 'Sulfuras, Hand of Ragnaros') {
-                        $item->quality = $item->quality - 1;
-                    }
-                }
-            } else {
-                if ($item->quality < 50) {
-                    $item->quality = $item->quality + 1;
-                    if ($item->name == 'Backstage passes to a TAFKAL80ETC concert') {
-                        if ($item->sellIn < 11) {
-                            if ($item->quality < 50) {
-                                $item->quality = $item->quality + 1;
-                            }
-                        }
-                        if ($item->sellIn < 6) {
-                            if ($item->quality < 50) {
-                                $item->quality = $item->quality + 1;
-                            }
-                        }
-                    }
+            $itemFound = true;
+            
+            foreach ($this->itemTypes as $type) {
+                if ($type->itemType($item)) {
+                    $type->nextDay($item);
+                    $itemFound = false;
                 }
             }
-            if ($item->name != 'Sulfuras, Hand of Ragnaros') {
-                $item->sellIn = $item->sellIn - 1;
-            }
-            if ($item->sellIn < 0) {
-                if ($item->name != 'Aged Brie') {
-                    if ($item->name != 'Backstage passes to a TAFKAL80ETC concert') {
-                        if ($item->quality > 0) {
-                            if ($item->name != 'Sulfuras, Hand of Ragnaros') {
-                                $item->quality = $item->quality - 1;
-                            }
-                        }
-                    } else {
-                        $item->quality = $item->quality - $item->quality;
-                    }
-                } else {
-                    if ($item->quality < 50) {
-                        $item->quality = $item->quality + 1;
-                    }
-                }
+
+            if($itemFound) {
+                throw new \UnexpectedValueException(
+                    print "$item not found"
+                );
             }
         }
     }
 }
+
